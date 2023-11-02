@@ -1,0 +1,42 @@
+
+.contact-list {
+    margin: 20px;
+    border-top: black 1px solid;
+    border-right: black 1px solid;
+    border-left: black 1px solid;
+}
+
+.example-contact {
+    display: flex;
+    border-bottom: black 1px solid;
+}
+
+.img-contact {
+    width: 150px;
+    height: 150px;
+    margin: 10px 50px;
+}
+
+.info-contact {
+    margin: 10px 0px;
+    margin-right: 300px;
+}
+
+.info-contact h5 {
+    color: rgb(92, 92, 92);
+}
+
+.icons-contact {
+    font-size: 24px;
+    margin: 10px;
+}
+
+.icon-contact {
+    margin-right: 20px;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.icon-info {
+    margin-right: 10px;
+}

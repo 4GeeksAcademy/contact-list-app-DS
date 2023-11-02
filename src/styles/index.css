@@ -1,3 +1,6 @@
-/* 
-    General Styles
-*/
+
+#app {
+    font-family: 'Times New Roman';
+    display: flex;
+    justify-content: center;
+}

@@ -4,8 +4,8 @@ import ContactList from "../component/ContactList.jsx";
 import ButtonContact from "../component/ButtonContact.jsx";
 
 export const Home = () => (
-	<>
+	<div className="row">
 		<ButtonContact />
 		<ContactList />
-	</>
+	</div>
 );

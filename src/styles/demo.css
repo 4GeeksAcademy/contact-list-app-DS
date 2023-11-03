@@ -1,0 +1,38 @@
+
+.new-contact {
+    width: 80vw;
+    height: 80vh;
+}
+
+.title-new-contact {
+    text-align: center;
+    font-weight: bold;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 40px;
+}
+
+.info-new-contact {
+    font-size: 20px;
+}
+
+.input-new-contact {
+    width: 80vw;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.btn-new-contact {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 5px 0px;
+}
+
+.link-new-contact {
+    font-size: 20px;
+}
+
+.link-new-contact:hover {
+    color: darkblue;
+}

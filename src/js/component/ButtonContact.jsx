@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 
 const ButtonContact = () => {
     return (
-        <div className="button-contact">
-            <div className="ml-auto">
-                <Link to="/demo">
-                    <button className="btn btn-primary">Check the Context in action</button>
-                </Link>
-            </div>
+        <div className="container-button-contact row">
+            <Link to="/demo">
+                <button className="btn-contact">Add new contact</button>
+            </Link>
         </div>
     )
 }

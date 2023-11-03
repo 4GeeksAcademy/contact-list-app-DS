@@ -1,14 +1,18 @@
 
+/* ---- CONTACT LIST JSX [start] ---- */
+
 .contact-list {
     margin: 20px;
-    border-top: black 1px solid;
-    border-right: black 1px solid;
-    border-left: black 1px solid;
+    border-top: rgba(0, 0, 0, 0.5) 1px solid;
+    border-right: rgba(0, 0, 0, 0.5) 1px solid;
+    border-left: rgba(0, 0, 0, 0.5) 1px solid;
+    padding: 0px;
 }
 
 .example-contact {
     display: flex;
-    border-bottom: black 1px solid;
+    border-bottom: rgba(0, 0, 0, 0.5) 1px solid;
+    justify-content: space-around;
 }
 
 .img-contact {
@@ -19,7 +23,7 @@
 
 .info-contact {
     margin: 10px 0px;
-    margin-right: 300px;
+    margin-right: 400px;
 }
 
 .info-contact h5 {
@@ -35,8 +39,40 @@
     margin-right: 20px;
     margin-left: 30px;
     margin-top: 10px;
+    color: black;
+    cursor: default;
+}
+
+.icon-contact:hover { 
+    color: rgba(0, 0, 0, 0.6);
+    transition: .3s;
 }
 
 .icon-info {
     margin-right: 10px;
+}
+
+/* ---- CONTACT LIST JSX [end] ---- */
+/* -------------------------------- */
+/* ---- BUTTON CONTACT [start] ---- */
+
+.container-button-contact {
+    text-align: right;
+    margin-left: 42px;
+    margin-top: 20px;
+}
+
+.btn-contact {
+    color: white;
+    background: rgb(11, 165, 11);
+    font-size: 24px;
+    font-weight: 400;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5%;
+}
+
+.btn-contact:hover {
+    background-color: green;
+    transition: .3s;
 }

@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ContactList = () => {
-    return (
+	return (
 		<div className="contact-list">
 
 			{/* CONTACTO 1 */}
@@ -32,8 +33,10 @@ const ContactList = () => {
 				</div>
 				{/* ICONOS EDITAR Y BORRAR */}
 				<div className="icons-contact">
-					<i class="icon-contact fa-solid fa-pen-to-square"></i>
-					<i class="icon-contact fa-solid fa-trash"></i>
+					<Link to="/demo" className='icon-contact'>
+						<i class="fa-solid fa-pen-to-square"></i>
+					</Link>
+					<i class="icon-contact trash fa-solid fa-trash"></i>
 				</div>
 			</div>
 
@@ -65,8 +68,10 @@ const ContactList = () => {
 				</div>
 				{/* ICONOS EDITAR Y BORRAR */}
 				<div className="icons-contact">
-					<i class="icon-contact fa-solid fa-pen-to-square"></i>
-					<i class="icon-contact fa-solid fa-trash"></i>
+					<Link to="/demo" className='icon-contact'>
+						<i class="fa-solid fa-pen-to-square"></i>
+					</Link>
+					<i class="icon-contact trash fa-solid fa-trash"></i>
 				</div>
 			</div>
 
@@ -98,13 +103,15 @@ const ContactList = () => {
 				</div>
 				{/* ICONOS EDITAR Y BORRAR */}
 				<div className="icons-contact">
-					<i class="icon-contact fa-solid fa-pen-to-square"></i>
-					<i class="icon-contact fa-solid fa-trash"></i>
+					<Link to="/demo" className='icon-contact'>
+						<i class="fa-solid fa-pen-to-square"></i>
+					</Link>
+					<i class="icon-contact trash fa-solid fa-trash"></i>
 				</div>
 			</div>
 
 		</div>
-    )
+	)
 }
 
 export default ContactList

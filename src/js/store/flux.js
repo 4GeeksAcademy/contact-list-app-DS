@@ -1,6 +1,10 @@
+import { userStore, userActions } from "./user.js";
+import { contactStore, contactActions } from "./contact.js";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			message: null,
 			demo: [
 				{
 					title: "FIRST",
@@ -12,18 +16,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			...userStore,
+			...contactStore
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
@@ -37,6 +34,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			...userActions(getActions, getStore, setStore),
+			...contactActions(getActions, getStore, setStore),
+			useFetch: async (endpoint, body, method = "GET") => {
+				let url = "https://playground.4geeks.com/apis/fake/contact/agenda" + endpoint;
+				let response = await fetch(url, {
+					method: method,
+					headers: { "Content-Type": "application/json" },
+					body: body ? JSON.stringify(body) : null,
+				});
+
+				let responseJSON = await response.json();
+
+				return { responseJSON, response };
 			}
 		}
 	};

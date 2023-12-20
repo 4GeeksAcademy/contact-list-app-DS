@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
+import Swal from 'sweetalert2'
+
+import '../../styles/contact.css'
+
 const NewContact = () => {
 
     const { store, actions } = useContext(Context);
@@ -11,6 +15,17 @@ const NewContact = () => {
         phone: "",
         address: ""
     })
+
+    const apiContactURL = "https://playground.4geeks.com/apis/fake/contact/agenda";
+
+    const handleSaveContact = () => {
+        Swal.fire({
+            icon: "success",
+            title: "Contact saved!",
+        });
+
+        // Redirect to home
+    }
 
     useEffect(() => { }, [data.fullName, data.email, data.phone, data.address])
 
@@ -67,14 +82,7 @@ const NewContact = () => {
             <button
                 className="btn-new-contact btn btn-primary w-100"
                 type='button'
-                onClick={async () => {
-                    let { responseJSON, response } = await actions.useFetch("https://playground.4geeks.com/apis/fake/contact/agenda", data, "POST")
-                    if (!response.ok) {
-                        alert("Hubo un error");
-                        return
-                    }
-                    alert("Guardado");
-                }}>Save</button>
+                onClick={handleSaveContact}>Save</button>
 
             <Link to="/" className='link-new-contact'>or get back to contacts</Link>
         </div>

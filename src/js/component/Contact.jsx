@@ -35,12 +35,17 @@ const Contact = ({ contact }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
+                actions.deleteContact(contact.id);
                 Swal.fire({
                     title: "Deleted!",
                     text: "Your contact has been deleted.",
                     icon: "success"
                 });
             }
+
+            setTimeout(() => {
+                window.location.reload(false)
+            }, 1000);
         });
     }
 

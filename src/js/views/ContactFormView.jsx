@@ -19,6 +19,29 @@ const ContactFormView = () => {
         phone: "",
     });
 
+    useEffect(() => {
+        if (id) {
+            const contactToEdit = store.contactList.find(contact => contact.id === parseInt(id, 10));
+            console.log("Contact to Edit:", contactToEdit);
+
+            if (contactToEdit) {
+                console.log("Setting Form Data:", {
+                    full_name: contactToEdit.full_name,
+                    email: contactToEdit.email,
+                    address: contactToEdit.address,
+                    phone: contactToEdit.phone,
+                });
+
+                setFormData({
+                    full_name: contactToEdit.full_name,
+                    email: contactToEdit.email,
+                    address: contactToEdit.address,
+                    phone: contactToEdit.phone,
+                });
+            }
+        }
+    }, [id, store.contactList]);
+
     const handleInputChange = e => {
         setFormData({
             ...formData,
@@ -28,11 +51,19 @@ const ContactFormView = () => {
 
     const handleSaveContact = () => {
         if (id) {
-            actions.updateContact(id, formData);
+            actions.updateContact(formData.full_name, formData.email, formData.phone, formData.address, id);
         } else {
             actions.createContact(formData.full_name, formData.email, formData.phone, formData.address);
         }
-        navigate('/');
+
+        Swal.fire({
+            icon: "success",
+            title: "Hecho!",
+        });
+
+        setTimeout(() => {
+            navigate('/');
+        }, 2000);
     };
 
     return (
@@ -47,6 +78,7 @@ const ContactFormView = () => {
                     id="fullName"
                     placeholder='Full Name'
                     required
+                    value={formData.full_name}
                     onChange={handleInputChange}
                 />
 
@@ -58,6 +90,7 @@ const ContactFormView = () => {
                     id="email"
                     placeholder='Enter email'
                     required
+                    value={formData.email}
                     onChange={handleInputChange}
                 />
 
@@ -69,6 +102,7 @@ const ContactFormView = () => {
                     id="phone"
                     placeholder='Enter phone'
                     required
+                    value={formData.phone}
                     onChange={handleInputChange}
                 />
 
@@ -80,6 +114,7 @@ const ContactFormView = () => {
                     id="address"
                     placeholder='Enter address'
                     required
+                    value={formData.address}
                     onChange={handleInputChange}
                 />
 

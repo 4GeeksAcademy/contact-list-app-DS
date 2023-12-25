@@ -1,47 +1,53 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../store/appContext';
+import { useNavigate, useParams } from 'react-router';
 
 import Swal from 'sweetalert2'
 
 import '../../styles/contact.css'
 
-const NewContact = () => {
-
+const ContactFormView = () => {
     const { store, actions } = useContext(Context);
-    const [data, setData] = useState({
-        fullName: "",
-        email: "",
-        phone: "",
-        address: ""
-    })
+    const { id } = useParams();
+    const navigate = useNavigate();
 
-    const apiContactURL = "https://playground.4geeks.com/apis/fake/contact/agenda";
+    const [formData, setFormData] = useState({
+        full_name: "",
+        email: "",
+        agenda_slug: "demian_sotomayor",
+        address: "",
+        phone: "",
+    });
+
+    const handleInputChange = e => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
 
     const handleSaveContact = () => {
-        Swal.fire({
-            icon: "success",
-            title: "Contact saved!",
-        });
-
-        // Redirect to home
-    }
-
-    useEffect(() => { }, [data.fullName, data.email, data.phone, data.address])
+        if (id) {
+            actions.updateContact(id, formData);
+        } else {
+            actions.createContact(formData.full_name, formData.email, formData.phone, formData.address);
+        }
+        navigate('/');
+    };
 
     return (
         <div className="new-contact">
-            <h1 className='title-new-contact'>Add a new contact</h1>
+            <h1 className="title-new-contact">{id ? 'Edit contact' : 'Add a new contact'}</h1>
             <div className="info-new-contact">
                 {/* NOMBRE COMPLETO */}
                 <h5>Full Name</h5>
                 <input
                     className='input-new-contact'
-                    type="text" name="fullName"
+                    type="text" name="full_name"
                     id="fullName"
                     placeholder='Full Name'
                     required
-                    onChange={(e) => setData({ ...data, fullName: e.target.value })}
+                    onChange={handleInputChange}
                 />
 
                 {/* EMAIL */}
@@ -52,7 +58,7 @@ const NewContact = () => {
                     id="email"
                     placeholder='Enter email'
                     required
-                    onChange={(e) => setData({ ...data, email: e.target.value })}
+                    onChange={handleInputChange}
                 />
 
                 {/* TELÉFONO */}
@@ -63,7 +69,7 @@ const NewContact = () => {
                     id="phone"
                     placeholder='Enter phone'
                     required
-                    onChange={(e) => setData({ ...data, phone: e.target.value })}
+                    onChange={handleInputChange}
                 />
 
                 {/* DIRECCIÓN */}
@@ -74,19 +80,19 @@ const NewContact = () => {
                     id="address"
                     placeholder='Enter address'
                     required
-                    onChange={(e) => setData({ ...data, address: e.target.value })}
+                    onChange={handleInputChange}
                 />
 
             </div>
-
             <button
                 className="btn-new-contact btn btn-primary w-100"
-                type='button'
-                onClick={handleSaveContact}>Save</button>
-
-            <Link to="/" className='link-new-contact'>or get back to contacts</Link>
+                type="button"
+                onClick={handleSaveContact}
+            >
+                Save
+            </button>
         </div>
-    )
-}
+    );
+};
 
-export default NewContact;
+export default ContactFormView;

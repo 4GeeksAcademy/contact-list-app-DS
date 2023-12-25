@@ -8,101 +8,105 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			getContacts: async () => {
 				const store = getStore();
-				const url = store.baseURL + "/agenda";
-				const options = {
-					method: "GET",
-					headers: {
-					}
-				};
-				const response = await fetch(url, options);
-				console.log(response);
+
+				const response = await fetch(store.baseURL + "/agenda/demian_sotomayor");
+
 				if (response.ok) {
 					const data = await response.json();
-					setStore({ contactList: data })
+					if (JSON.stringify(data) !== JSON.stringify(store.contactList)) {
+						setStore({ contactList: data });
+					}
 					console.log(data)
 
-				} else
+				} else {
 					console.log("Error:", response.status, response.statusText)
-
+				}
 			},
 
-			getSingleContact: async (id) => {
+			createContact: async (full_name, email, phone, address) => {
 				const store = getStore();
-				const url = `${store.baseURL}/${id}`;
-				console.log(url);
-				const options = {
-					method: "GET"
-				};
-				const response = await fetch(url, options);
-				console.log(response);
-				if (response.ok) {
-					const data = await response.json();
+				const url = store.baseURL + "/";
 
-					setStore({ selectedContact: data });
-
-				} else
-					console.log("Error:", response.status, response.statusText)
-
-			},
-
-			createContact: async (newContact) => {
-				const store = getStore();
-				const url = store.baseURL;
 				const options = {
 					method: "POST",
 					headers: {
-						"Content-type": "application/json"
+						"Content-Type": "application/json"
 					},
-					body: JSON.stringify(newContact)
+					body: JSON.stringify({
+						full_name: full_name,
+						email: email,
+						agenda_slug: "demian_sotomayor",
+						address: address,
+						phone: phone
+					})
 				};
+
+				console.log("Full Name:", full_name);
+				console.log("Email:", email);
+				console.log("Address:", address);
+				console.log("Phone:", phone);
+
 				const response = await fetch(url, options);
 				console.log(response);
+
 				if (response.ok) {
 					const data = await response.json();
-					getActions().getContacts();   // to retrieve sth from the store we use "getStore()". In the same way, to trigger an action (we want to trigger getContacts), we use "getActions".
-					//getActions().getContacts(); ensures that after creating a new contact and confirming its addition to the backend (response.ok), the local state in the application is updated to reflect this change in the frontend.
-					//remember we need to do always 2 steps: update the backend and update the frontend
-					//it will depend on the API, sometimes it will retrieve all contacts so I wouldn't need to trigger it, I would just use for example setStore({ "contactList": data}) 
-					console.log(data);
-				} else {
-					console.log("Error:", response.status, response.statusText);
-				}
-			},
-			deleteContact: async (id) => {
-				const store = getStore();
-				const url = `${store.baseURL}/${id}`;
-				const options = {
-					method: "DELETE",
-				};
-				const response = await fetch(url, options);
-				console.log(response);
-				if (response.ok) {
-					const data = await response.json();
-					getActions().getContacts();   //I need to get back my list of contacts which now won't include the one deleted
+					getActions().getContacts();
 					console.log(data);
 				} else {
 					console.log("Error:", response.status, response.statusText);
 				}
 			},
 
-			updateContact: async (contactId, updatedContact) => {
+			deleteContact: async (contactId) => {
 				const store = getStore();
-				const url = `${store.baseURL}/${contactId}`;
+				const url = store.baseURL + `/${contactId}`;
+
+				const options = {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				};
+
+				const response = await fetch(url, options);
+				console.log(response);
+
+				if (response.ok) {
+					const data = await response.json();
+					setStore({ contactList: store.contactList.filter((contact) => contact.id !== contactId) });
+					console.log(data);
+				} else {
+					console.log("Error deleteContact:", response.status, response.statusText);
+				}
+			},
+
+			updateContact: async (full_name, email, phone, address, contactId) => {
+				const store = getStore();
+				const url = store.baseURL + `/${contactId}`;
+
 				const options = {
 					method: "PUT",
 					headers: {
 						"Content-type": "application/json"
 					},
-					body: JSON.stringify(updatedContact)
+					body: JSON.stringify({
+						"full_name": full_name,
+						"email": email,
+						"agenda_slug": "demian_sotomayor",
+						"address": address,
+						"phone": phone
+					})
 				};
+
 				const response = await fetch(url, options);
 				console.log(response);
+
 				if (response.ok) {
 					const data = await response.json();
-					getActions().getContacts();   //I need to get back my list of contacts with now the updated contact
 					console.log(data);
 				} else {
-					console.log("Error:", response.status, response.statusText);
+					console.log("Error updateContact:", response.status, response.statusText);
 				}
 			}
 		}
